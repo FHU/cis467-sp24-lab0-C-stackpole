@@ -17,14 +17,35 @@ app.get("/", (req, res) => {
 
 // http://localhost:3000/greet?name=kaylee&dob=2002
 app.get('/greet', (req, res)=> {
-    console.log(req.query)
+    const currentYear = new Date().getFullYear();
+    //gets the older age you will be in the current year
+    const age = currentYear-req.query.year;
 
-    res.send(`hey, ${req.query.name}`)
+    res.render('greet', {title: 'Greeting', name: req.query.name , age: age})
 })
 
 app.get('/math/:num1/:op/:num2', (req, res)=> {
-    console.log( req.params )
-    res.send(`${req.params.num1}`)
+    const num1 = parseInt(req.params.num1);
+    const num2 = parseInt(req.params.num2);
+    switch(req.params.op){
+        case('plus'):
+            var ans = num1 + num2;
+            console.log(ans);
+            break;
+        case('minus'):
+            var ans = num1 - num2;
+            console.log(ans);
+            break;
+        case('times'):
+            var ans = num1 * num2;
+            console.log(ans);
+            break;
+        case('dividedby'):
+            var ans = num1 / num2;
+            console.log(ans);
+            break;
+    }
+    res.render('arithmetic', {title: 'Arithmetic', ans: ans})
 })
 
 app.get('/pandorasbox', (req, res)=> {
