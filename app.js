@@ -44,6 +44,11 @@ app.get('/math/:num1/:op/:num2', (req, res)=> {
             var ans = num1 / num2;
             console.log(ans);
             break;
+        case('tothepowerof'):
+            var ans = Math.pow(num1, num2);
+            console.log(ans);
+            break;
+
     }
     res.render('arithmetic', {title: 'Arithmetic', ans: ans})
 })
