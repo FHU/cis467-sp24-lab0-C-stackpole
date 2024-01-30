@@ -1,4 +1,5 @@
 const express = require('express')
+const facts = require('./facts.json')
 const app = express()
 
 const PORT = process.env.PORT || "3000"
@@ -15,7 +16,7 @@ app.get("/", (req, res) => {
 
 })
 
-// http://localhost:3000/greet?name=kaylee&dob=2002
+//greet
 app.get('/greet', (req, res)=> {
     const currentYear = new Date().getFullYear();
     //gets the older age you will be in the current year
@@ -23,7 +24,7 @@ app.get('/greet', (req, res)=> {
 
     res.render('greet', {title: 'Greeting', name: req.query.name , age: age})
 })
-
+//arithmetic
 app.get('/math/:num1/:op/:num2', (req, res)=> {
     const num1 = parseInt(req.params.num1);
     const num2 = parseInt(req.params.num2);
@@ -56,8 +57,11 @@ app.get('/math/:num1/:op/:num2', (req, res)=> {
 app.get('/pandorasbox', (req, res)=> {
 
     // do the work
-    const message = "DAD JOKE"
+    const length = facts.length;
+    const random =  Math.floor( Math.random() * length)
+    const fact = facts[random].fact
 
-    res.render('pandorasbox', {title: "Pandora's Box", message} )
+
+    res.render('pandorasbox', {title: "Pandora's Box", fact: fact} )
 
 })
