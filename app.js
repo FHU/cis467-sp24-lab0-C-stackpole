@@ -56,12 +56,21 @@ app.get('/math/:num1/:op/:num2', (req, res)=> {
 
 app.get('/pandorasbox', (req, res)=> {
 
-    // do the work
-    const length = facts.length;
-    const random =  Math.floor( Math.random() * length)
-    const fact = facts[random].fact
+    switch(Math.floor(Math.random()*3)+1){
+        case(1):
+            const length = facts.length;
+            const random =  Math.floor( Math.random() * length)
+            var random_generation = facts[random].fact
+            break
+        case(2):
+            var random_generation = 'Random image'
+            break
+        case(3):
+            var random_generation = 'Random dad joke'
+
+    }
 
 
-    res.render('pandorasbox', {title: "Pandora's Box", fact: fact} )
+    res.render('pandorasbox', {title: "Pandora's Box", random: random_generation} )
 
 })
