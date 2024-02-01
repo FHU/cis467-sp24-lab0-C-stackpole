@@ -60,17 +60,33 @@ app.get('/pandorasbox', (req, res)=> {
         case(1):
             const length = facts.length;
             const random =  Math.floor( Math.random() * length)
-            var random_generation = facts[random].fact
+            res.render('pandorasbox', {title: "Pandora's Box", random: facts[random].fact} )
             break
         case(2):
-            var random_generation = 'Random image'
-            break
+        fetch("https://api.unsplash.com/photos/random", { 
+            headers: {
+                "Accept-Version": "v1",
+                "Authorization": "Client-ID sTfR1RT8xegKSO0f1ryGXR4euXAPpiku_oRcExBftXk"
+            }
+            })
+            .then( res => res.json() )
+            .then( (data) => {
+                console.log(data.urls.small)
+                res.render('pandorasbox_img', {title: "Pandora's Box", image: data.urls.small} )
+            })
+        break
         case(3):
-            var random_generation = 'Random dad joke'
+            fetch("https://icanhazdadjoke.com/", { 
+                headers: {
+                    "Accept": "application/json"
+                }
+                })
+                .then( res => res.json() )
+                .then( (data) => {
+                    console.log(data)
+                    res.render('pandorasbox', {title: "Pandora's Box", random: data.joke} )
+                })
+            break
 
     }
-
-
-    res.render('pandorasbox', {title: "Pandora's Box", random: random_generation} )
-
 })
